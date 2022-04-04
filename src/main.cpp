@@ -8,16 +8,16 @@
 // //12        Zelena
 // //13        Plava
 // //15        Crvena
-extern int connection_indicator;
+ int connection_indicator;
 
 int i_cnt=0;
 void setup()
 {
 pinMode(pin_plava,OUTPUT);
 Connect_WiFi();
-pinMode(connection_indicator,OUTPUT);
 Serial.begin(9600);
-Connect_WiFi();
+connection_indicator=Connect_WiFi();
+pinMode(connection_indicator,OUTPUT);
 }
 
 void loop()

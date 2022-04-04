@@ -7,9 +7,9 @@
 //12        Zelena
 //13        Plava
 //15        Crvena
-int connection_indicator;
 
-void Connect_WiFi()
+//Vrijednos ret integera je broj pina koij trebas ukljuciti da bi boja LED inidcirala status veze (Zelena - Connected, Crvena- Time Out,Plava povezivanje jos u tijeku)
+int Connect_WiFi()
 {
     digitalWrite(pin_plava, HIGH);
     int i_cnt = 0;
@@ -26,28 +26,25 @@ void Connect_WiFi()
             Serial.println("]");
             Serial.print("SSID: "); Serial.print(WIFI_SSID); Serial.println(" not avaliable!");
             digitalWrite(pin_plava, LOW);
-            connection_indicator = 15;
-            return;
+            return 15;
         }
         if (WiFi.status() == WL_WRONG_PASSWORD) //Ako je pogresna sifra
         {
             Serial.println("]");
             Serial.print("Wrong password for SSID: "); Serial.print(WIFI_SSID); Serial.println("!");
             digitalWrite(pin_plava, LOW);
-            connection_indicator = 15;
-            return;
+            return 15;
         }
         if (i_cnt > 50)                        //Ovo se brine o tome da se ne povezuje beskrajno dugo u slucaju greske
         {
             Serial.println("]");
             Serial.println("Connection failed(connection time too long)!");
             digitalWrite(pin_plava, LOW);
-            connection_indicator = 15;
-            return;
+            return 15;
         }
     }
     Serial.println("]");
     Serial.print("Conected to:"); Serial.println(WIFI_SSID);
     digitalWrite(pin_plava, LOW);
-    connection_indicator = 12;
+    return 12;
 }
