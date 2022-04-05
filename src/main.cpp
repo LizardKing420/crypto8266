@@ -26,6 +26,7 @@ void loop()
     digitalWrite(connection_indicator, LOW);
     delay(1500);
     digitalWrite(connection_indicator, HIGH);
+    getBTC();
     delay(1500);
     Serial.print("Loop nr. ");
     Serial.print(i_cnt);
