@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <WiFiClientSecure.h>
+#include <ArduinoJson.h>
 #define pin_plava 13
 #define WIFI_SSID   "Fam Martic"
 #define WIFI_PASS   "obitelj martic"
@@ -11,6 +12,7 @@
 //13        Plava
 //15        Crvena
 WiFiClientSecure client;
+static float cryptoPrices[3];
 //Vrijednos ret integera je broj pina koij trebas ukljuciti da bi boja LED inidcirala status veze (Zelena - Connected, Crvena- Time Out,Plava povezivanje jos u tijeku)
 int Connect_WiFi()
 {
@@ -54,7 +56,7 @@ int Connect_WiFi()
     return 12;
 }
 //pokusatu cu sa set insecure, 
-void getBTC() 
+void getCryptoPrices() 
 {
   if (!client.connect(TEST_HOST, 443))
 {
@@ -118,13 +120,51 @@ void getBTC()
     Serial.println("BAD");
   }
 
-  // While the client is still availble read each
-  // byte and print to the serial monitor
-  while (client.available())
-  {
-    char c = 0;
-    client.readBytes(&c, 1);
-    Serial.print(c);
-  }
+  // // While the client is still availble read each
+  // // byte and print to the serial monitor
+  // while (client.available())
+  // {
+  //   char c = 0;
+  //   client.readBytes(&c, 1);
+  //   Serial.print(c);
+  // }
 
+  DynamicJsonDocument doc(192); //Ovo je od JSON ASSISTANTA
+
+  DeserializationError error = deserializeJson(doc, client);
+
+if (error) {
+  Serial.print(F("deserializeJson() failed: "));
+  Serial.println(error.f_str());
+  return;
+}
+int i = 0;
+
+for (JsonPair item : doc.as<JsonObject>()) 
+{
+  const char* item_key = item.key().c_str(); // "bitcoin", "ethereum", "monero"
+
+  float value_eur = item.value()["eur"]; // 41621, 3078.12, 203.46
+  cryptoPrices[i]= value_eur;
+  i++;
+  Serial.println();
+  Serial.println(value_eur);
+}
+
+
+}
+float getBTC()
+{
+  if (cryptoPrices[0]== n) Serial.println("Error BTC PRICE is NULL");
+  return cryptoPrices[0];
+}
+float getETH()
+{
+  if (cryptoPrices[1]==NULL) Serial.println("Error ETH PRICE is NULL");
+  return cryptoPrices[1];
+}
+float getXMR()
+{
+  if (cryptoPrices[2]==NULL) Serial.println("Error XMR PRICE is NULL");
+  return cryptoPrices[2];
 }
