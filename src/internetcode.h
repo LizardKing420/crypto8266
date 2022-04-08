@@ -70,7 +70,7 @@ void getCryptoPrices()
   // Send HTTP request
   client.print(F("GET "));
   // This is the second half of a request (everything that comes after the base URL)
-  client.print("/api/v3/simple/price?ids=ethereum%2Cbitcoin&vs_currencies=usd%2Ceur"); // %2C == ,
+  client.print("/api/v3/simple/price?ids=ethereum%2Cbitcoin%2Cmonero&vs_currencies=eur"); // %2C == ,
 
     client.println(F(" HTTP/1.0"));
 
@@ -155,7 +155,7 @@ for (JsonPair item : doc.as<JsonObject>())
 }
 float getBTC()
 {
-  if (cryptoPrices[0]== n) Serial.println("Error BTC PRICE is NULL");
+  if (cryptoPrices[0]==NULL) Serial.println("Error BTC PRICE is NULL");
   return cryptoPrices[0];
 }
 float getETH()
