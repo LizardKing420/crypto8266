@@ -1,4 +1,4 @@
-#include <Arduino.h>
+#include "header.h"
 #include <ESP8266WiFi.h>
 #include <WiFiClientSecure.h>
 #include <ArduinoJson.h>
@@ -12,7 +12,7 @@
 //13        Plava
 //15        Crvena
 WiFiClientSecure client;
-static float cryptoPrices[3];
+static float cryptoPrices[3] = {0,0,0};
 //Vrijednos ret integera je broj pina koij trebas ukljuciti da bi boja LED inidcirala status veze (Zelena - Connected, Crvena- Time Out,Plava povezivanje jos u tijeku)
 int Connect_WiFi()
 {
@@ -142,29 +142,26 @@ int i = 0;
 
 for (JsonPair item : doc.as<JsonObject>()) 
 {
-  const char* item_key = item.key().c_str(); // "bitcoin", "ethereum", "monero"
-
-  float value_eur = item.value()["eur"]; // 41621, 3078.12, 203.46
-  cryptoPrices[i]= value_eur;
+  cryptoPrices[i] = item.value()["eur"]; // 41621, 3078.12, 203.46
   i++;
   Serial.println();
-  Serial.println(value_eur);
+  Serial.println(cryptoPrices[i]);
 }
 
 
 }
 float getBTC()
 {
-  if (cryptoPrices[0]==NULL) Serial.println("Error BTC PRICE is NULL");
+  if (cryptoPrices[0] == 0) Serial.println("Error BTC PRICE is NULL");
   return cryptoPrices[0];
 }
 float getETH()
 {
-  if (cryptoPrices[1]==NULL) Serial.println("Error ETH PRICE is NULL");
+  if (cryptoPrices[1] == 0) Serial.println("Error ETH PRICE is NULL");
   return cryptoPrices[1];
 }
 float getXMR()
 {
-  if (cryptoPrices[2]==NULL) Serial.println("Error XMR PRICE is NULL");
+  if (cryptoPrices[2] == 0) Serial.println("Error XMR PRICE is NULL");
   return cryptoPrices[2];
 }

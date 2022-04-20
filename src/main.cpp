@@ -1,6 +1,8 @@
-#include <Arduino.h>
+#include "header.h"
 #include <ESP8266WiFi.h>
 #include <internetcode.h>
+#include "german.h"
+#include "croatian.h"
 #define pin_plava 13
 // #define WIFI_SSID   "Fam Martic"
 // #define WIFI_PASS   "obitelj martic"
@@ -37,9 +39,15 @@ void loop()
     digitalWrite(connection_indicator, HIGH);
     delay(1500);
     Serial.println("The current prices of your cryptocurrecies are as follows:");
-    Serial.print("-- Bitcoin   : "); Serial.print(cryptoPrices[0]); Serial.println(" €");
+    Serial.print("-- Bitcoin   : "); Serial.print(btcEur); Serial.println(" €");
+    Serial.print(digit2TextAndSoundDe(btcEur)); Serial.println(" Euro fuer ein BTC.");
+    Serial.print(digit2TextAndSoundHr(btcEur)); Serial.println(" Eura za jedan BTC.");
     Serial.print("-- Etherium  : "); Serial.print(ethEur); Serial.println(" €");
+    Serial.print(digit2TextAndSoundDe(ethEur)); Serial.println(" Euro fuer ein ETH.");
+    Serial.print(digit2TextAndSoundHr(ethEur)); Serial.println(" Eura za jedan ETH.");
     Serial.print("-- Monero    : "); Serial.print(xmrEur); Serial.println(" €");
+    Serial.print(digit2TextAndSoundDe(xmrEur)); Serial.println(" Euro fuer ein XMR.");
+    Serial.print(digit2TextAndSoundHr(xmrEur)); Serial.println(" Eura za jedan XMR.");
     Serial.println();
     Serial.print("Loop nr. ");
     Serial.print(i_cnt);
