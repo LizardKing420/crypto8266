@@ -10,47 +10,58 @@
 // //12        Zelena
 // //13        Plava
 // //15        Crvena
-int connection_indicator;
-extern float cryptoPrices[3];
 
-int i_cnt=0;
-float btcEur = 0;
-float ethEur = 0;
-float xmrEur = 0;
-void setup()
+//                             // ovaj dio (dio 1.) ne trebam u LangBranch, pa cu ga izkomentirati
+// int connection_indicator;
+// extern float cryptoPrices[3];
+
+// int i_cnt=0;
+// float btcEur = 0;
+// float ethEur = 0;
+// float xmrEur = 0;
+
+
+// void setup()
+// {
+// pinMode(pin_plava,OUTPUT);
+// Connect_WiFi();
+// Serial.begin(9600);
+// connection_indicator=Connect_WiFi();
+// pinMode(connection_indicator,OUTPUT);
+// getCryptoPrices();
+// btcEur = getBTC();
+// ethEur = getETH();
+// xmrEur = getXMR();
+
+// }
+                            //kraj djela 1
+
+                            // setup metoda za debugg LangBrnacha (dio 2)
+int randNumer; 
+
+void setup() 
 {
-pinMode(pin_plava,OUTPUT);
-Connect_WiFi();
 Serial.begin(9600);
-connection_indicator=Connect_WiFi();
-pinMode(connection_indicator,OUTPUT);
-getCryptoPrices();
-btcEur = getBTC();
-ethEur = getETH();
-xmrEur = getXMR();
-
+pinMode(0, INPUT);
+pinMode(12,OUTPUT);
+randomSeed(analogRead(0));
 }
+                            // kraj djela 2
 
 void loop()
 {   
-    i_cnt++;
-    digitalWrite(connection_indicator, LOW);
+    digitalWrite(12, LOW);
     delay(1500);
-    digitalWrite(connection_indicator, HIGH);
-    delay(1500);
-    Serial.println("The current prices of your cryptocurrecies are as follows:");
-    Serial.print("-- Bitcoin   : "); Serial.print(btcEur); Serial.println(" €");
-    Serial.print(digit2TextAndSoundDe(btcEur)); Serial.println(" Euro fuer ein BTC.");
-    Serial.print(digit2TextAndSoundHr(btcEur)); Serial.println(" Eura za jedan BTC.");
-    Serial.print("-- Etherium  : "); Serial.print(ethEur); Serial.println(" €");
-    Serial.print(digit2TextAndSoundDe(ethEur)); Serial.println(" Euro fuer ein ETH.");
-    Serial.print(digit2TextAndSoundHr(ethEur)); Serial.println(" Eura za jedan ETH.");
-    Serial.print("-- Monero    : "); Serial.print(xmrEur); Serial.println(" €");
-    Serial.print(digit2TextAndSoundDe(xmrEur)); Serial.println(" Euro fuer ein XMR.");
-    Serial.print(digit2TextAndSoundHr(xmrEur)); Serial.println(" Eura za jedan XMR.");
+    randNumer = int(random(0,100000));
     Serial.println();
-    Serial.print("Loop nr. ");
-    Serial.print(i_cnt);
-    Serial.println(" done!");
-    Serial.println("------------------");
+    Serial.println("- - - - - - -");
+    Serial.println(randNumer);
+    Serial.println("- - - - - - -");
+    // Serial.println(digit2TextAndSoundDe(randNumer));
+    // Serial.println("...");
+    Serial.println(digit2TextAndSoundHr(randNumer));
+    Serial.println("......................................");
+    digitalWrite(12, HIGH);
+    delay(1500);
+
 }

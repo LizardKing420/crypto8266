@@ -16,7 +16,7 @@ static String as_numDe[] =  {"null" , "ein", "zwei",   "drei",    "vier",   "fue
                       " hundert ", " tausend ", "milion" , "miliarde"
                             };
 
-String playDe(int i)  //staviuo sam komentar jer stalno dobijam gresku
+String playDe(int i)  
 {
   //  mp3.play(i); // Spiele ein MP3-File mit dem gesprochenen Text des obigen Array ab
   return as_numDe[i];
@@ -96,17 +96,7 @@ static String digit2TextAndSoundDe(int i)
   if (i > 999)//          The K part
   {
     s+=speakKDe(i);
-    i%=1000000000;
+    i%=1000;
   }
   return s+spkDe(i);//    The "spk" part
-}
-
-static String SpeakDe(int i)     //Used only for playing the mp3serial
-{
-  String s = String(i) + " == ";
-  if (i < 0) {
-    s += playDe(MINUS);
-    i = -i;
-    return s + digit2TextAndSoundDe(i);
-}
 }
