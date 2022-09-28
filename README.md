@@ -6,8 +6,7 @@ ESP8266 is used to build a machine which connects to Internet and upon endusers 
 
 Supported Criptos:
 -Bitcoin
--Etherium
--Monreo
+
 
 Suported languages:
 -English
