@@ -14,7 +14,7 @@ Suported languages:
 -Croatian
 
 PART LIST:
-- ESP8266 (gitwiz) (for further information: https://gizwits.8266.de/)
+- ESP8266 (gitwiz) (for further information: https://elektro.turanis.de/html/prj397/index.html)
 - Serial MP3 Player
 - 3 ON-OFF buttons
 - 1 ON-OFF-ON toggle switch
